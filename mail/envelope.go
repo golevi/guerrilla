@@ -18,6 +18,12 @@ import (
 	"github.com/golevi/guerrilla/mail/rfc5321"
 )
 
+const maxHeaderChunk = 1 + (30 << 10)
+
+var (
+	ErrHeadersAlreadyParsed = errors.New("headers already parsed")
+)
+
 // A WordDecoder decodes MIME headers containing RFC 2047 encoded-words.
 // Used by the MimeHeaderDecode function.
 // It's exposed public so that an alternative decoder can be set, eg Gnu iconv
@@ -29,8 +35,6 @@ func init() {
 	// use the default decoder, without Gnu inconv. Import the mail/inconv package to use iconv.
 	Dec = mime.WordDecoder{}
 }
-
-const maxHeaderChunk = 1 + (4 << 10) // 4KB
 
 // Address encodes an email address of the form `<user@host>`
 type Address struct {
@@ -174,7 +178,7 @@ func queuedID(clientID uint64) string {
 func (e *Envelope) ParseHeaders() error {
 	var err error
 	if e.Header != nil {
-		return errors.New("headers already parsed")
+		return ErrHeadersAlreadyParsed
 	}
 	buf := e.Data.Bytes()
 	// find where the header ends, assuming that over 30 kb would be max
