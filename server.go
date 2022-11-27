@@ -6,7 +6,6 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"io"
 	"io/ioutil"
 	"net"
@@ -16,11 +15,13 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/flashmob/go-guerrilla/backends"
-	"github.com/flashmob/go-guerrilla/log"
-	"github.com/flashmob/go-guerrilla/mail"
-	"github.com/flashmob/go-guerrilla/mail/rfc5321"
-	"github.com/flashmob/go-guerrilla/response"
+	"github.com/sirupsen/logrus"
+
+	"github.com/golevi/guerrilla/backends"
+	"github.com/golevi/guerrilla/log"
+	"github.com/golevi/guerrilla/mail"
+	"github.com/golevi/guerrilla/mail/rfc5321"
+	"github.com/golevi/guerrilla/response"
 )
 
 const (

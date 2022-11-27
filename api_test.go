@@ -4,16 +4,17 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"github.com/flashmob/go-guerrilla/backends"
-	"github.com/flashmob/go-guerrilla/log"
-	"github.com/flashmob/go-guerrilla/mail"
-	"github.com/flashmob/go-guerrilla/response"
 	"io/ioutil"
 	"net"
 	"os"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/golevi/guerrilla/backends"
+	"github.com/golevi/guerrilla/log"
+	"github.com/golevi/guerrilla/mail"
+	"github.com/golevi/guerrilla/response"
 )
 
 // Test Starting smtp without setting up logger / backend

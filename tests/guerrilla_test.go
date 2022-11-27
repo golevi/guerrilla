@@ -16,14 +16,15 @@ package test
 
 import (
 	"encoding/json"
-	"github.com/flashmob/go-guerrilla/mail/rfc5321"
 	"testing"
+
+	"github.com/golevi/guerrilla/mail/rfc5321"
 
 	"time"
 
-	"github.com/flashmob/go-guerrilla"
-	"github.com/flashmob/go-guerrilla/backends"
-	"github.com/flashmob/go-guerrilla/log"
+	"github.com/golevi/guerrilla"
+	"github.com/golevi/guerrilla/backends"
+	"github.com/golevi/guerrilla/log"
 
 	"bufio"
 
@@ -36,7 +37,7 @@ import (
 
 	"os"
 
-	"github.com/flashmob/go-guerrilla/tests/testcert"
+	"github.com/golevi/guerrilla/tests/testcert"
 )
 
 type TestConfig struct {
@@ -90,7 +91,7 @@ var configJson = `
             "host_name":"mail.guerrillamail.com",
             "max_size": 100017,
             "timeout":160,
-            "listen_interface":"127.0.0.1:2526", 
+            "listen_interface":"127.0.0.1:2526",
             "max_clients": 2,
             "log_file" : "",
 			"tls" : {

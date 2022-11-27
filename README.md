@@ -10,7 +10,7 @@ A lightweight SMTP server written in Go, made for receiving large volumes of mai
 To be used as a package in your Go project, or as a stand-alone daemon by running the "guerrillad" binary.
 
 Supports MySQL and Redis out-of-the-box, with many other vendor provided _processors_,
-such as [MailDir](https://github.com/flashmob/maildir-processor) and even [FastCGI](https://github.com/flashmob/fastcgi-processor)! 
+such as [MailDir](https://github.com/flashmob/maildir-processor) and even [FastCGI](https://github.com/flashmob/fastcgi-processor)!
 See below for a list of available processors.
 
 ![Go Guerrilla](/GoGuerrilla.png)
@@ -19,7 +19,7 @@ See below for a list of available processors.
 
 It's an SMTP server written in Go, for the purpose of receiving large volumes of email.
 It started as a project for GuerrillaMail.com which processes millions of emails every day,
-and needed a daemon with less bloat & written in a more memory-safe language that can 
+and needed a daemon with less bloat & written in a more memory-safe language that can
 take advantage of modern multi-core architectures.
 
 The purpose of this daemon is to grab the email, save it,
@@ -27,14 +27,14 @@ and disconnect as quickly as possible, essentially performing the services of a
 Mail Transfer Agent (MTA) without the sending functionality.
 
 The software also includes a modular backend implementation, which can extend the email
-processing functionality to whatever needs you may require. We refer to these modules as 
-"_Processors_". Processors can be chained via the config to perform different tasks on 
+processing functionality to whatever needs you may require. We refer to these modules as
+"_Processors_". Processors can be chained via the config to perform different tasks on
 received email, or to validate recipients.
 
 See the list of available _Processors_ below.
 
 For more details about the backend system, see the:
-[Backends, configuring and extending](https://github.com/flashmob/go-guerrilla/wiki/Backends,-configuring-and-extending) page.
+[Backends, configuring and extending](https://github.com/golevi/guerrilla/wiki/Backends,-configuring-and-extending) page.
 
 ### License
 
@@ -46,32 +46,32 @@ The software is using MIT License (MIT) - contributors welcome.
 
 - Multi-server. Can spawn multiple servers, all sharing the same backend
 for saving email.
-- Config hot-reloading. Add/Remove/Enable/Disable servers without restarting. 
+- Config hot-reloading. Add/Remove/Enable/Disable servers without restarting.
 Reload TLS configuration, change most other settings on the fly.
 - Graceful shutdown: Minimise loss of email if you need to shutdown/restart.
 - Be a gentleman to the garbage collector: resources are pooled & recycled where possible.
-- Modular [Backend system](https://github.com/flashmob/go-guerrilla/wiki/Backends,-configuring-and-extending) 
+- Modular [Backend system](https://github.com/golevi/guerrilla/wiki/Backends,-configuring-and-extending)
 - Modern TLS support (STARTTLS or SMTPS).
-- Can be [used as a package](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package) in your Go project. 
+- Can be [used as a package](https://github.com/golevi/guerrilla/wiki/Using-as-a-package) in your Go project.
 Get started in just a few lines of code!
-- [Fuzz tested](https://github.com/flashmob/go-guerrilla/wiki/Fuzz-testing). 
+- [Fuzz tested](https://github.com/golevi/guerrilla/wiki/Fuzz-testing).
 [Auto-tested](https://travis-ci.org/flashmob/go-guerrilla). Battle Tested.
 
 #### Backend Features
 
-- Arranged as workers running in parallel, using a producer/consumer type structure, 
- taking advantage of Go's channels and go-routines. 
-- Modular [backend system](https://github.com/flashmob/go-guerrilla/wiki/Backends,-configuring-and-extending)
- structured using a [decorator-like pattern](https://en.wikipedia.org/wiki/Decorator_pattern) which allows the chaining of components (a.k.a. _Processors_) via the config.  
-- Different ways for processing / delivering email: Supports MySQL and Redis out-of-the box, many other 
+- Arranged as workers running in parallel, using a producer/consumer type structure,
+ taking advantage of Go's channels and go-routines.
+- Modular [backend system](https://github.com/golevi/guerrilla/wiki/Backends,-configuring-and-extending)
+ structured using a [decorator-like pattern](https://en.wikipedia.org/wiki/Decorator_pattern) which allows the chaining of components (a.k.a. _Processors_) via the config.
+- Different ways for processing / delivering email: Supports MySQL and Redis out-of-the box, many other
 vendor provided processors available.
 
 ### Roadmap / Contributing & Bounties
 
-Pull requests / issue reporting & discussion / code reviews always 
-welcome. To encourage more pull requests, we are now offering bounties. 
+Pull requests / issue reporting & discussion / code reviews always
+welcome. To encourage more pull requests, we are now offering bounties.
 
-Take a look at our [Bounties and Roadmap](https://github.com/flashmob/go-guerrilla/wiki/Roadmap-and-Bounties) page!
+Take a look at our [Bounties and Roadmap](https://github.com/golevi/guerrilla/wiki/Roadmap-and-Bounties) page!
 
 
 Getting started
@@ -81,9 +81,9 @@ Getting started
 
 #### Dependencies
 
-Go-Guerrilla uses [Dep](https://golang.github.io/dep/) to manage 
+Go-Guerrilla uses [Dep](https://golang.github.io/dep/) to manage
 dependencies. If you have dep installed, just run `dep ensure` as usual.
- 
+
 You can also run `$ go get ./..` if you don't want to use dep, and then run `$ make test`
 to ensure all is good.
 
@@ -94,21 +94,21 @@ $ make guerrillad
 ```
 
 This will create a executable file named `guerrillad` that's ready to run.
-See the [build notes](https://github.com/flashmob/go-guerrilla/wiki/Build-Notes) for more details.
+See the [build notes](https://github.com/golevi/guerrilla/wiki/Build-Notes) for more details.
 
-Next, copy the `goguerrilla.conf.sample` file to `goguerrilla.conf.json`. 
-You may need to customize the `pid_file` setting to somewhere local, 
-and also set `tls_always_on` to false if you don't have a valid certificate setup yet. 
+Next, copy the `goguerrilla.conf.sample` file to `goguerrilla.conf.json`.
+You may need to customize the `pid_file` setting to somewhere local,
+and also set `tls_always_on` to false if you don't have a valid certificate setup yet.
 
 Next, run your server like this:
 
 `$ ./guerrillad serve`
 
-The configuration options are detailed on the [configuration page](https://github.com/flashmob/go-guerrilla/wiki/Configuration). 
+The configuration options are detailed on the [configuration page](https://github.com/golevi/guerrilla/wiki/Configuration).
 The main takeaway here is:
 
-The default configuration uses 3 _processors_, they are set using the `save_process` 
-config option. Notice that it contains the following value: 
+The default configuration uses 3 _processors_, they are set using the `save_process`
+config option. Notice that it contains the following value:
 `"HeadersParser|Header|Debugger"` - this means, once an email is received, it will
 first go through the `HeadersParser` processor where headers will be parsed.
 Next, it will go through the `Header` processor, where delivery headers will be added.
@@ -116,12 +116,12 @@ Finally, it will finish at the `Debugger` which will log some debug messages.
 
 Where to go next?
 
-- Try setting up an [example configuration](https://github.com/flashmob/go-guerrilla/wiki/Configuration-example:-save-to-Redis-&-MySQL) 
+- Try setting up an [example configuration](https://github.com/golevi/guerrilla/wiki/Configuration-example:-save-to-Redis-&-MySQL)
 which saves email bodies to Redis and metadata to MySQL.
 - Try importing some of the 'vendored' processors into your project. See [MailDiranasaurus](https://github.com/flashmob/maildiranasaurus)
 as an example project which imports the [MailDir](https://github.com/flashmob/maildir-processor) and [FastCGI](https://github.com/flashmob/fastcgi-processor) processors.
-- Try hacking the source and [create your own processor](https://github.com/flashmob/go-guerrilla/wiki/Backends,-configuring-and-extending).
-- Once your daemon is running, you might want to stup [log rotation](https://github.com/flashmob/go-guerrilla/wiki/Automatic-log-file-management-with-logrotate).
+- Try hacking the source and [create your own processor](https://github.com/golevi/guerrilla/wiki/Backends,-configuring-and-extending).
+- Once your daemon is running, you might want to stup [log rotation](https://github.com/golevi/guerrilla/wiki/Automatic-log-file-management-with-logrotate).
 
 
 
@@ -135,14 +135,14 @@ Go-Guerrilla can be imported and used as a package in your Go project.
 #### 1. Import the guerrilla package
 ```go
 import (
-    "github.com/flashmob/go-guerrilla"
+    "github.com/golevi/guerrilla"
 )
 
 
 ```
 
-You should use the `dep ensure` command to get all dependencies, as Go-Guerrilla uses 
-[dep](https://golang.github.io/dep/) for dependency management. 
+You should use the `dep ensure` command to get all dependencies, as Go-Guerrilla uses
+[dep](https://golang.github.io/dep/) for dependency management.
 
 Otherise, ``$ go get ./...`` should work if you're in a hurry.
 
@@ -163,54 +163,54 @@ if err == nil {
 
 `d.Start()` *does not block* after the server has been started, so make sure that you keep your program busy.
 
-The defaults are: 
+The defaults are:
 * Server listening to 127.0.0.1:2525
 * use your hostname to determine your which hosts to accept email for
 * 100 maximum clients
-* 10MB max message size 
-* log to Stderror, 
+* 10MB max message size
+* log to Stderror,
 * log level set to "`debug`"
-* timeout to 30 sec 
+* timeout to 30 sec
 * Backend configured with the following processors: `HeadersParser|Header|Debugger` where it will log the received emails.
 
-Next, you may want to [change the interface](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#starting-a-server---custom-listening-interface) (`127.0.0.1:2525`) to the one of your own choice.
+Next, you may want to [change the interface](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#starting-a-server---custom-listening-interface) (`127.0.0.1:2525`) to the one of your own choice.
 
 #### API Documentation topics
 
-Please continue to the [API documentation](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package) for the following topics:
+Please continue to the [API documentation](https://github.com/golevi/guerrilla/wiki/Using-as-a-package) for the following topics:
 
 
-- [Suppressing log output](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#starting-a-server---suppressing-log-output)
-- [Custom listening interface](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#starting-a-server---custom-listening-interface)
-- [What else can be configured](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#what-else-can-be-configured)
-- [Backends](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#backends)
-    - [About the backend system](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#about-the-backend-system)
-    - [Backend Configuration](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#backend-configuration)
-    - [Registering a Processor](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#registering-a-processor)
-- [Loading config from JSON](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#loading-config-from-json)
-- [Config hot-reloading](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#config-hot-reloading)
-- [Logging](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#logging-stuff)
-- [Log re-opening](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#log-re-opening)
-- [Graceful shutdown](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#graceful-shutdown)
-- [Pub/Sub](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#pubsub)
-- [More Examples](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#more-examples)
+- [Suppressing log output](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#starting-a-server---suppressing-log-output)
+- [Custom listening interface](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#starting-a-server---custom-listening-interface)
+- [What else can be configured](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#what-else-can-be-configured)
+- [Backends](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#backends)
+    - [About the backend system](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#about-the-backend-system)
+    - [Backend Configuration](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#backend-configuration)
+    - [Registering a Processor](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#registering-a-processor)
+- [Loading config from JSON](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#loading-config-from-json)
+- [Config hot-reloading](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#config-hot-reloading)
+- [Logging](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#logging-stuff)
+- [Log re-opening](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#log-re-opening)
+- [Graceful shutdown](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#graceful-shutdown)
+- [Pub/Sub](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#pubsub)
+- [More Examples](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#more-examples)
 
 Use as a Daemon
 ==========================================================
 
 ### Manual for using from the command line
 
-- [guerrillad command](https://github.com/flashmob/go-guerrilla/wiki/Running-from-command-line#guerrillad-command)
-    - [Starting](https://github.com/flashmob/go-guerrilla/wiki/Running-from-command-line#starting)
-    - [Re-loading configuration](https://github.com/flashmob/go-guerrilla/wiki/Running-from-command-line#re-loading-the-config)
-    - [Re-open logs](https://github.com/flashmob/go-guerrilla/wiki/Running-from-command-line#re-open-log-file)
-    - [Examples](https://github.com/flashmob/go-guerrilla/wiki/Running-from-command-line#examples)
+- [guerrillad command](https://github.com/golevi/guerrilla/wiki/Running-from-command-line#guerrillad-command)
+    - [Starting](https://github.com/golevi/guerrilla/wiki/Running-from-command-line#starting)
+    - [Re-loading configuration](https://github.com/golevi/guerrilla/wiki/Running-from-command-line#re-loading-the-config)
+    - [Re-open logs](https://github.com/golevi/guerrilla/wiki/Running-from-command-line#re-open-log-file)
+    - [Examples](https://github.com/golevi/guerrilla/wiki/Running-from-command-line#examples)
 
 ### Other topics
 
-- [Using Nginx as a proxy](https://github.com/flashmob/go-guerrilla/wiki/Using-Nginx-as-a-proxy)
-- [Testing STARTTLS](https://github.com/flashmob/go-guerrilla/wiki/Running-from-command-line#testing-starttls)
-- [Benchmarking](https://github.com/flashmob/go-guerrilla/wiki/Profiling#benchmarking)
+- [Using Nginx as a proxy](https://github.com/golevi/guerrilla/wiki/Using-Nginx-as-a-proxy)
+- [Testing STARTTLS](https://github.com/golevi/guerrilla/wiki/Running-from-command-line#testing-starttls)
+- [Benchmarking](https://github.com/golevi/guerrilla/wiki/Profiling#benchmarking)
 
 
 Email Processing Backend
@@ -219,10 +219,10 @@ Email Processing Backend
 The main job of a Go-Guerrilla backend is to validate recipients and deliver emails. The term
 "delivery" is often synonymous with saving email to secondary storage.
 
-The default backend implementation manages multiple workers. These workers are composed of 
+The default backend implementation manages multiple workers. These workers are composed of
 smaller components called "Processors" which are chained using the config to perform a series of steps.
 Each processor specifies a distinct feature of behaviour. For example, a processor may save
-the emails to a particular storage system such as MySQL, or it may add additional headers before 
+the emails to a particular storage system such as MySQL, or it may add additional headers before
 passing the email to the next _processor_.
 
 To extend or add a new feature, one would write a new Processor, then add it to the config.
@@ -245,7 +245,7 @@ There are a few default _processors_ to get you started.
 ### Available Processors
 
 The following processors can be imported to your project, then use the
-[Daemon.AddProcessor](https://github.com/flashmob/go-guerrilla/wiki/Using-as-a-package#registering-a-processor) function to register, then add to your config.
+[Daemon.AddProcessor](https://github.com/golevi/guerrilla/wiki/Using-as-a-package#registering-a-processor) function to register, then add to your config.
 
 | Processor | Description |
 |-----------|-------------|
@@ -262,7 +262,7 @@ Current release: 1.5.1 - 4th Nov 2016
 
 Next Planned release: 2.0.0 - TBA
 
-See our [change log](https://github.com/flashmob/go-guerrilla/wiki/Change-Log) for change and release history
+See our [change log](https://github.com/golevi/guerrilla/wiki/Change-Log) for change and release history
 
 
 Using Nginx as a proxy
@@ -270,23 +270,23 @@ Using Nginx as a proxy
 
 For such purposes as load balancing, terminating TLS early,
  or supporting SSL versions not supported by Go (highly not recommended if you
- want to use older TLS/SSL versions), 
- it is possible to [use NGINX as a proxy](https://github.com/flashmob/go-guerrilla/wiki/Using-Nginx-as-a-proxy).
+ want to use older TLS/SSL versions),
+ it is possible to [use NGINX as a proxy](https://github.com/golevi/guerrilla/wiki/Using-Nginx-as-a-proxy).
 
 
 
 Credits
 =======
 
-Project Lead: 
+Project Lead:
 -------------
 Flashmob, GuerrillaMail.com, Contact: flashmob@gmail.com
 
-Major Contributors: 
+Major Contributors:
 -------------------
 
 * Reza Mohammadi https://github.com/remohammadi
-* Jordan Schalm https://github.com/jordanschalm 
+* Jordan Schalm https://github.com/jordanschalm
 * Philipp Resch https://github.com/dapaxx
 
 Thanks to:
