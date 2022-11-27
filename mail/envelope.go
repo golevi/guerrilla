@@ -10,6 +10,7 @@ import (
 	"mime"
 	"net"
 	"net/textproto"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -160,7 +161,10 @@ func NewEnvelope(remoteAddr string, clientID uint64) *Envelope {
 }
 
 func queuedID(clientID uint64) string {
-	return fmt.Sprintf("%x", md5.Sum([]byte(string(time.Now().Unix())+string(clientID))))
+	now := time.Now().Unix()
+	ts := strconv.Itoa(int(now))
+	cid := strconv.Itoa(int(clientID))
+	return fmt.Sprintf("%x", md5.Sum([]byte(ts+cid)))
 }
 
 // ParseHeaders parses the headers into Header field of the Envelope struct.
